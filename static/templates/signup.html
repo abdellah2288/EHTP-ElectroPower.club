@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+        <head>
+                <meta charset="utf-8"/>
+                <meta name="author" content="Abdellah Radad"/>
+                <meta name="description" content="Hassania school of public works' official web page"/>
+                <link rel="stylesheet" href="static/css/style.css">
+                <title> Sign Up </title>
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+                <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+        </head>
+	<body>
+		<div class="signup-box">
+			<img src="static/logo.png" />
+			<form action="/registerTeam" method="POST">
+				<label for="tn">Team name</label>
+				<input type="text" id="tn" name="teamName"/>
+				<label for="tc">Number of participants</label>
+				<input type="text" id="tc" name="teamCount"/>
+				<label for="ts">School/Establishment</label>
+				<input type="text" id="ts" name="teamSchoolName"/>
+				<label for="tl">Team lead</label>
+				<input type="text" id="tl" name="teamLeadName"/>
+				<label for="tln">Team lead phone number</label>
+				<input type="text" id="tln" name="teamLeadPhone"/>
+				<label for="tle">Team lead email address</label>
+				<input type="text" id="tle" name="teamLeadMail"/>
+				<input type="submit" value="Sign up"/>
+			</form>
+      {{if .}}
+      <div class="slabel">{{.}}!  <a href="/">Return to home</a></div>
+      {{end}}
+		</div>
+	</body>
+</html>
