@@ -1,2 +1,6 @@
 static/media/members/*
 *.mp4
+*.sh
+mainDB
+mainDBAbsolute
+
