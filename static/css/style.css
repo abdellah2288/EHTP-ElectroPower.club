@@ -43,6 +43,7 @@ html
 .back-to-main
 {
   position:fixed;
+  z-index:9;
   padding:20px;
   top:0;
   left:0;
@@ -120,8 +121,62 @@ nav input[type="checkbox"]
   height:0;
 	aspect-ratio:1/1;
 }
-
-
+/*Project cards*/
+.text-card-2
+{
+  display:grid;
+  overflow:hidden;
+  grid-template-rows:repeat(3,20%);
+  grid-template-columns:repeat(10,10%);
+}
+.text-card-2 h2
+{
+  grid-area:1/1/2/11;
+  background-color:gold;
+  color:var(--body-background-color);
+  font-size:var(--font-size-3);
+	box-shadow:var(--body-shadow); 
+}
+.text-card-2 .img-container 
+{
+  grid-area:2/1/4/4;
+}
+.text-card-2 .img-container img
+{
+  border-radius:10px;
+  max-width:30vw;
+  background-size: contain;
+}
+.text-card-2 p 
+{
+	font-size:var(--font-size-1);
+  grid-area:2/5/4/11;
+}
+.text-card-3
+{
+  display:flex;
+  gap:2vw;
+  overflow:hidden;
+}
+.text-card-3 .img-container 
+{
+  flex: 0 0 45%;
+  min-width: 0;
+  overflow:hidden;
+}
+.text-card-3 .img-container img
+{
+  width: 95%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius:10px;
+  background-size: cover;
+}
+.text-card-3 p 
+{
+	font-size:var(--font-size-1);
+}
 nav .theme-switcher-container
 {
 	background-color:whitesmoke;
@@ -164,10 +219,11 @@ nav .theme-switcher-container:hover
 
 .section-header h2
 {
-	font-size:var(--font-size-2);
+	font-size:var(--font-size-3);
 	position:relative;
 	border-style:solid;
 	border-radius:10px;
+  text-wrap:nowrap;
 	border-color:gold;
 	border-width:0px 4px 0px 4px;
 	width:fit-content;
@@ -313,21 +369,82 @@ nav .theme-switcher-container:hover
 {
 	color:gold;
 }
+/* BOM */
+.bom-grid {
+	position:relative;
+	height:auto;
+	display:flex;
+	align-items:center;
+	justify-content:space-evenly;
+	border-color:gold;
+	border-radius:5px;
+	border-width:0px 4px 0px 4px;
+	padding:2vw;
+	margin:auto;
+	flex-wrap:wrap;
+	gap:2vw;
+	overflow-x:auto;
+}
+.bom-element {	
+	flex: 1 0 30%;
+	max-width:30%;
+	position:relative;
+	height:30dvh;
+	border-color:gold;
+	border-radius:5px;
+	border-width:0px 0px 0px 0px;
+	border-style:solid;
+	box-shadow:var(--body-shadow); 
+	opacity:0.95;	
+	color:var(--body-background-color);
+	overflow:hidden;
+	display:grid;
+	grid-template-columns:1fr;
+	grid-template-rows:repeat(2,30%);
+}
+.bom-element .element-caption {
+	z-index:2;
+	grid-area:3/1/4/2;
+	background-color:rgba(21,21,21,0.3);
+	color:whitesmoke;
+	font-size:var(--font-size-0);
+}
+.element-caption h2  {
+	grid-area:3/1/4/2;
+	text-decoration:none;
+	border-style:solid;
+	border-width:0px 0px 4px 0px;
+	border-color:gold;
+	color:whitesmoke;
+	text-align:center;
+}
+.bom-element .element-img  {
+	grid-area:1/1/4/2;
+	z-index:-1;
+	overflow:hidden;
+}
+.element-img img {
+	height:100%;
+	width:100%;
+	object-fit:cover;
+}
+
+
 /*Member Cards */
 .member-card-holder
 {
 	position:relative;
 	height:auto;
 	display:flex;
-	justify-items:flex-start;
+	align-items:center;
+	justify-content:space-evenly;
 	border-color:gold;
 	border-radius:5px;
 	border-width:0px 4px 0px 4px;
-	padding-bottom:2vh;
-	padding-left:5vw;
-	padding-next:5vw;
+  padding:2vw;
 	margin:auto;
-	gap:4vw;
+  flex-wrap:wrap;
+	gap:2vw;
 	overflow-x:auto;
 }
 .member-card-holder::-webkit-scrollbar
@@ -344,7 +461,8 @@ nav .theme-switcher-container:hover
 }
 .member-card
 {	
-	flex: 1 0 30%;
+	flex: 1 0 25%;
+  max-width:25%;
 	position:relative;
 	height:50dvh;
 	border-color:gold;
@@ -544,12 +662,21 @@ nav .theme-switcher-container:hover
 	color:whitesmoke;
 	transition:width 1s ease-in-out;
 }
+.event-card .event-card-hover-fill
+{
+	z-index:1;
+	grid-area:5/1/6/4;
+	background-color:rgba(21,21,21,0.3);
+
+}
 .event-card .event-card-extra
 {
 	z-index:1;
 	font-size:0.8rem;
 	grid-area:5/4/6/5;
 	padding-top:10px;
+  text-align:center;
+	background-color:rgba(21,21,21,0.3);
 }
 .event-card .event-card-extra a
 {
@@ -567,6 +694,12 @@ nav .theme-switcher-container:hover
 	color:var(--body-background-color);
 }
 /* Social media box*/
+.contact-info-box
+{
+	display:flex;
+	justify-content:space-evenly;
+  gap:2vw;
+}
 .social-media-box
 {
 	display:flex;
@@ -592,7 +725,7 @@ nav .theme-switcher-container:hover
 {
 flex:1 0 20%; 
 text-align:center;
-font-size:var(--font-size-2);
+font-size:var(--font-size-1);
 }
 .contact-info a
 {
@@ -715,11 +848,44 @@ font-size:var(--font-size-2);
 		grid-template-rows:repeat(4,20%);
 	}	
 }
+@media (max-width:1400px)
+{
+ nav label p
+ {
+   font-size:0rem;
+ }
+}
 @media (max-width:1024px)
 {
+  .bom-element
+  {
+    flex:0 0 40%;
+    min-width:40%;
+  }
+  .contact-info-box
+  {
+    flex-direction:column;
+  }
+  .contact-info
+  {
+    font-size:var(--font-size-0);
+  }
   .event-card .event-card-extra
   {
-    font-size:1rem;
+    bored-radius:0;
+	  grid-area:5/1/6/5;
+    font-size:1.2rem;
+  }
+  .event-card .event-card-extra a h2 
+  {
+    height:100%;
+    width:100%;
+    border-radius:0;
+  }
+  .event-card .event-card-title
+  {
+    text-align:center;
+    font-size:var(--font-size-1);
   }
   .slide-container .slide-button
   {
@@ -737,12 +903,14 @@ font-size:var(--font-size-2);
   }
   .member-card
 	{
-		flex: 0 0 65%;
+		flex: 0 0 40%;
+
+    min-width:40%;
     height:30dvh;
 	}
   .member-card .profile-caption
   {
-    font-size:var(--font-size-1);
+    font-size:var(--font-size-0);
   }
   .button-belt
   {
@@ -755,10 +923,6 @@ font-size:var(--font-size-2);
   .text-card
   {
     font-size:var(--font-size-2);
-  }
-  .section-header h2
-  {
-    font-size:var(--font-size-3);
   }
 	.event-card-holder
 	{
@@ -793,6 +957,31 @@ font-size:var(--font-size-2);
   :root:has(input[type="checkbox"]#navButton:checked)
   {
    --navbar-height:auto;
+  }
+  .slide-container .slide-button
+  {
+    background-color:gold;
+    opacity:1;
+    border-radius:10px;
+    color:var(--body-background-color);
+  }
+  .text-card-3
+  {
+    flex-direction:column;
+    padding:4px;
+  }
+  .text-card-3 p
+  {
+    font-size:var(--font-size-0);
+  }
+  .text-card-3 img-container
+  {
+    flex: 1 1 auto;
+  }
+  .sponsor-board
+  {
+    flex-direction:column;
+    align-items:center;
   }
 }
 

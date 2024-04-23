@@ -1,9 +1,9 @@
-const hackathonDate = new Date("2024-04-15");
+const hackathonDate = new Date("Apr 24, 2024 18:00:00").getTime();
 const countdownOutput = document.querySelector("p#countdownText");
 function updateCountdown() {
- let currentDate = new Date();
+var currentDate = new Date().getTime();
 
-let distance = hackathonDate - currentDate;
+var distance = hackathonDate - currentDate;
 var days = Math.floor(distance / (1000 * 60 * 60 * 24));
 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));

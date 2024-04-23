@@ -19,6 +19,7 @@ type (
 		Role             string
 	}
 )
+
 type News struct {
 	Index        int
 	ID           string
@@ -38,10 +39,16 @@ type Sponsor struct {
 	Link string
 	Logo string
 }
+type Project struct {
+	Title     string
+	Caption   string
+	Thumbnail string
+}
 type ServerData struct {
 	BoardMembers []Member
 	LatestNews   []News
 	Sponsors     []Sponsor
+	Projects     []Project
 }
 
 var mainData ServerData
@@ -51,21 +58,22 @@ func (server Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		switch r.URL.Path {
 		case "/":
-			t, _ := template.ParseFiles("static/templates/index.html")
+			t, _ := template.ParseFiles("/root/ep.club/static/templates/index.html")
 			t.Execute(w, mainData)
 		case "/register":
-			t, _ := template.ParseFiles("static/templates/signup.html")
+			t, _ := template.ParseFiles("/root/ep.club/static/templates/signup.html")
 			t.Execute(w, nil)
-		case "/projects":
-			fmt.Fprint(w, "Page under construction")
 		case "/circuitjam":
-			t, _ := template.ParseFiles("static/templates/countdown.html")
+			t, _ := template.ParseFiles("/root/ep.club/static/templates/countdown.html")
+			t.Execute(w, nil)
+		case "/circuitjam2":
+			t, _ := template.ParseFiles("/root/ep.club/static/templates/circuitjam.html")
 			t.Execute(w, nil)
 		case "/osaker":
 			http.Redirect(w, r, "https://www.youtube.com/watch?v=OaMPGbWFaX8", http.StatusSeeOther)
-		case "/palestine":
-			t, _ := template.ParseFiles("static/templates/palestine.html")
-			t.Execute(w, nil)
+		case "/projects":
+			t, _ := template.ParseFiles("/root/ep.club/static/templates/projects.html")
+			t.Execute(w, mainData)
 		default:
 			fmt.Fprint(w, "Page not found")
 		}
@@ -90,7 +98,7 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
 		team.teamLeadPhone = r.FormValue("teamLeadPhone")
 		team.teamLeadMail = r.FormValue("teamLeadMail")
 		registerTeamInDB(team)
-		template, err := template.ParseFiles("static/templates/signup.html")
+		template, err := template.ParseFiles("/root/ep.club/static/templates/signup.html")
 		checkError(err)
 		template.Execute(w, "Signup Successful")
 	}
@@ -99,7 +107,7 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
 func queryDB() {
 	/*Database  Queries*/
 	count := 0
-	database, err := sql.Open("sqlite3", "./mainDB")
+	database, err := sql.Open("sqlite3", "/root/ep.club/mainDB")
 	checkError(err)
 	countQuery, err := database.Query("SELECT COUNT(*) FROM boardMembers")
 	checkError(err)
@@ -151,11 +159,27 @@ func queryDB() {
 		index++
 	}
 
+	index = 0
+
+	countQuery, err = database.Query("SELECT COUNT(*) FROM projects")
+	checkError(err)
+	rows, err = database.Query("SELECT title,caption,thumbnail FROM projects")
+	checkError(err)
+
+	if countQuery.Next() {
+		countQuery.Scan(&count)
+	}
+	mainData.Projects = make([]Project, count, count)
+	for rows.Next() {
+		currentProject := &(mainData.Projects[index])
+		rows.Scan(&(currentProject.Title), &(currentProject.Caption), &(currentProject.Thumbnail))
+		index++
+	}
 	database.Close()
 }
 
 func registerTeamInDB(teamData TeamData) {
-	database, err := sql.Open("sqlite3", "./mainDB")
+	database, err := sql.Open("sqlite3", "/root/ep.club/mainDB")
 	defer database.Close()
 	checkError(err)
 	statement, err := database.Prepare(" INSERT INTO circuitJamTeams(teamName,teamCount,teamSchool,teamLeadName,teamLeadPhone,teamLeadMail) VALUES (?,?,?,?,?,?)")
@@ -166,7 +190,7 @@ func registerTeamInDB(teamData TeamData) {
 
 func main() {
 	var server Server
-	fs := http.FileServer(http.Dir("static"))
+	fs := http.FileServer(http.Dir("/root/ep.club/static"))
 	http.HandleFunc("/static/", func(wr http.ResponseWriter, req *http.Request) {
 		// Determine mime type based on the URL
 		if strings.HasSuffix(req.URL.Path, ".css") {
