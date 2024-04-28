@@ -64,9 +64,6 @@ func (server Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			t, _ := template.ParseFiles("/root/ep.club/static/templates/signup.html")
 			t.Execute(w, nil)
 		case "/circuitjam":
-			t, _ := template.ParseFiles("/root/ep.club/static/templates/countdown.html")
-			t.Execute(w, nil)
-		case "/circuitjam2":
 			t, _ := template.ParseFiles("/root/ep.club/static/templates/circuitjam.html")
 			t.Execute(w, nil)
 		case "/osaker":
